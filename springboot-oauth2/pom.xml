@@ -12,6 +12,8 @@
     <modules>
         <module>authorization-server-oauth2</module>
         <module>resources-server-demo</module>
+        <module>authorization-server-oauth2-jwt</module>
+        <module>resources-server-jwt-demo</module>
     </modules>
 
     <name>springboot-oauth2</name>
@@ -22,11 +24,21 @@
         <maven.compiler.source>9</maven.compiler.source>
         <maven.compiler.target>9</maven.compiler.target>
 
+        <springboot-version>2.1.3.RELEASE</springboot-version>
         <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencyManagement>
+
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>

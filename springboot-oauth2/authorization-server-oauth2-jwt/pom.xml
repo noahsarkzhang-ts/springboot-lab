@@ -7,15 +7,9 @@
         <groupId>org.noahsark</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>authorization-server-oauth2</artifactId>
-
-    <properties>
-        <maven.compiler.source>9</maven.compiler.source>
-        <maven.compiler.target>9</maven.compiler.target>
-    </properties>
+    <artifactId>authorization-server-oauth2-jwt</artifactId>
 
     <dependencies>
         <dependency>
