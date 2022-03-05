@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: example
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos
+        file-extension: properties

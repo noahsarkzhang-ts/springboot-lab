@@ -1,0 +1,29 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: url-config
+          uri: http://localhost:8081 # 路由到 8081 服务
+          predicates:
+            - Path=/configs/** # 匹配 /configs 下所有请求
+          filters:
+            - StripPrefix=1 # /configs/cache --> /cache,移除第一个前缀
+
+        - id: services-config
+          uri: lb://service-provider # 通过 nacos 注册中心路由服务
+          predicates:
+            - Path=/services/**
+    nacos:
+      discovery:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos
+
+logging:
+  level:
+    root: debug

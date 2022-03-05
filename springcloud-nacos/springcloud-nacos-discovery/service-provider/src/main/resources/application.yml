@@ -1,0 +1,12 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: service-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos
