@@ -5,6 +5,6 @@ spring:
     nacos:
       config:
         server-addr: localhost:8848
-        username: nacos
-        password: nacos
+        # username: nacos
+        # password: nacos
         file-extension: properties

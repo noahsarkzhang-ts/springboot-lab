@@ -1,0 +1,60 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: url-config
+          uri: http://localhost:9091 # 路由到 9091 服务
+          predicates:
+            - Path=/configs/** # 匹配 /configs 下所有请求
+          filters:
+            - StripPrefix=1 # /configs/cache --> /cache,移除第一个前缀
+
+        - id: services-config
+          uri: lb://service-provider # 通过 nacos 注册中心路由服务
+          predicates:
+            - Path=/services/**
+
+        - id: koala-oauth
+          uri: lb://koala-cas-server
+          predicates:
+            - Path=/cas/oauth/**
+          filters:
+            - StripPrefix=1
+
+        - id: koala-oauth2-api
+          uri: lb://koala-oauth2-api
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        # username: nacos
+        # password: nacos
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/oauth/public-key #配置RSA的公钥访问地址
+  redis:
+    #database: 0
+    port: 6379
+    host: 120.79.235.83
+    #password: 123456
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - /actuator/**
+      - /cas/oauth/**
+
+logging:
+  level:
+    root: debug
+

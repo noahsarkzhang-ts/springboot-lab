@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9092
 
 spring:
   application:
@@ -8,5 +8,5 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-        username: nacos
-        password: nacos
+        # username: nacos
+        # password: nacos

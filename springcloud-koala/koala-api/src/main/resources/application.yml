@@ -1,0 +1,20 @@
+server:
+  port: 9501
+
+spring:
+  application:
+    name: koala-oauth2-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+logging:
+  level:
+    root: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
