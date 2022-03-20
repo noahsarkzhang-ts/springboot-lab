@@ -5,6 +5,12 @@ spring:
   application:
     name: api-gateway
   cloud:
+    sentinel:
+      # 是否饥饿加载。默认为 false 关闭
+      eager: true
+      transport:
+        ## 指定控制台的地址，默认端口8090
+        dashboard: localhost:8090
     gateway:
       routes:
         - id: url-config
@@ -22,9 +28,7 @@ spring:
         - id: koala-oauth
           uri: lb://koala-cas-server
           predicates:
-            - Path=/cas/oauth/**
-          filters:
-            - StripPrefix=1
+            - Path=/cas/**
 
         - id: koala-oauth2-api
           uri: lb://koala-oauth2-api
@@ -52,7 +56,8 @@ secure:
   ignore:
     urls: #配置白名单路径
       - /actuator/**
-      - /cas/oauth/**
+      - /cas/**
+      - /gw/**
 
 logging:
   level:

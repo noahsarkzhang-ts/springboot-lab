@@ -37,8 +37,8 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             LOGGER.info("AuthGlobalFilter.filter() user:{}",userStr);
             ServerHttpRequest request = exchange.getRequest().mutate().header("user", userStr).build();
             exchange = exchange.mutate().request(request).build();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException ex) {
+            LOGGER.error("catch an exception!",ex);
         }
         return chain.filter(exchange);
     }

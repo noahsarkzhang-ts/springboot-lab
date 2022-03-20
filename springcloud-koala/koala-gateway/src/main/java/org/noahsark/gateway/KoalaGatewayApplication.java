@@ -15,6 +15,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class KoalaGatewayApplication {
 
     public static void main(String[] args) {
+
+        System.setProperty("csp.sentinel.app.type", "1");
         SpringApplication.run(KoalaGatewayApplication.class, args);
     }
 }

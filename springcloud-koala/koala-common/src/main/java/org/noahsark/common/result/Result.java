@@ -1,7 +1,5 @@
 package org.noahsark.common.result;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -92,5 +90,14 @@ public class Result<T> implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code='" + code + '\'' +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }

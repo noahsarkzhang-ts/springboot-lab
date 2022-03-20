@@ -1,6 +1,5 @@
 package org.noahsark.auth.service;
 
-
 import org.noahsark.auth.entity.Role;
 import org.noahsark.auth.entity.User;
 import org.noahsark.auth.mapper.RoleMapper;

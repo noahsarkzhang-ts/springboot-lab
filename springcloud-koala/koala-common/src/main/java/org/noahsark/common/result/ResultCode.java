@@ -1,8 +1,5 @@
 package org.noahsark.common.result;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 /**

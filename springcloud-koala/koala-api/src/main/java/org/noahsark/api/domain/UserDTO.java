@@ -1,8 +1,5 @@
 package org.noahsark.api.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.util.List;
 
 public class UserDTO {

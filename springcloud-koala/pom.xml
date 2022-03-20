@@ -13,6 +13,8 @@
         <module>koala-gateway</module>
         <module>koala-common</module>
         <module>koala-api</module>
+        <module>koala-sso-app1</module>
+        <module>koala-sso-app2</module>
     </modules>
 
     <!-- 依赖包版本管理 -->

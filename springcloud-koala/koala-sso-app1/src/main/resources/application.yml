@@ -1,0 +1,11 @@
+server:
+  port: 9501
+
+spring:
+  application:
+    name: koala-sso-app1
+
+logging:
+  level:
+    root: debug
+

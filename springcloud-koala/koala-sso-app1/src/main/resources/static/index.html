@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Koala SSO App1</title>
+    <style type="text/css">
+        #login {
+            margin: auto;
+            width: 300px;
+            padding-top: 50px;
+        }
+
+        #login-success {
+            margin: auto;
+            width: 300px;
+            padding-top: 50px;
+        }
+
+        #login-fail {
+            margin: auto;
+            width: 300px;
+            padding-top: 50px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="login" style="display: none">
+    <a href="javascript:void(0);" onclick="gotoLogin();">登陆app1......</a>
+</div>
+
+<div id="login-success" style="display: none">
+    <div id="token"></div>
+</div>
+
+<div id="login-fail" style="display: none">
+    <div id="error"></div>
+
+</div>
+
+<script type="text/javascript">
+
+    var url = window.location.href;
+    console.log("url:" + url);
+
+    var uuid = getQueryString("uuid");
+    var error = getQueryString("error");
+
+    if (uuid == null && error == null) {
+        display("login");
+        unDisplay("login-success");
+        unDisplay("login-fail");
+    }
+
+    if (uuid != null) {
+        display("login-success");
+        unDisplay("login");
+        unDisplay("login-fail");
+
+        var url = "http://localhost:8081/gw/token?uuid=" + uuid;
+        ajax({
+			type:"get",
+			url: url,
+			dataType:"json",
+			success:function(result){
+
+			    console.log(JSON.stringify(result));
+
+			    var token = result.data.access_token;
+
+				var html = "";
+				html += "<h3>" + token + "</h3>"
+
+				document.getElementById("token").innerHTML = html;
+
+			}
+		});
+    }
+
+    if (error != null) {
+        display("login-fail");
+        unDisplay("login");
+        unDisplay("login-fail");
+
+        var html = "";
+        html += "<h3>" + error + "</h3>"
+
+        document.getElementById("error").innerHTML = html;
+    }
+
+    function getLoginUrl() {
+        var url = "http://localhost:8081/gw/login?redirectUri=http://localhost:9501/index.html";
+        var sessionId = createUuid();
+        var clientId = "app1";
+
+        url += "&uuid=" + sessionId;
+        url += "&clientId=" + clientId;
+
+        console.log("loginUrl:" + url);
+
+        return url;
+    }
+
+    function gotoLogin() {
+        var url = getLoginUrl();
+
+        window.location.href = url;
+    }
+
+    function createUuid() {
+        var temp_url = URL.createObjectURL(new Blob());
+        var result = temp_url.toString();
+        URL.revokeObjectURL(temp_url);
+        return result.substr(result.lastIndexOf("/") + 1);
+    }
+
+    function getQueryString(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        let r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return decodeURIComponent(r[2]);
+        };
+        return null;
+    }
+
+    function display(id) {
+        var target = document.getElementById(id);
+
+        if (target.style.display == "none") {
+            target.style.display = "";
+        }
+    }
+
+    function unDisplay(id) {
+        var target = document.getElementById(id);
+
+        if (target.style.display == "") {
+            target.style.display = "none";
+        }
+    }
+
+    function uuid1(len, radix) {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+
+        if (len) {
+            // Compact form
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+        } else {
+            // rfc4122, version 4 form
+            var r;
+
+            // rfc4122 requires these characters
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+
+            // Fill in random data.  At i==19 set the high bits of clock sequence as
+            // per rfc4122, sec. 4.1.5
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random()*16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+             }
+        }
+
+        return uuid.join('');
+    }
+
+    function ajax(options) {
+		options = options || {};
+        var method = (options.type || "GET").toUpperCase(),
+            url = options.url,
+            queryString = null;
+
+        if(!url) {
+			return;
+		}
+
+        if(options.data){
+            queryString = [];
+            for(var attr in options.data){
+				queryString.push(attr + "=" +options.data[attr]);
+            }
+
+            queryString = queryString.join("&");
+        }
+        if(method === "GET" && queryString){
+            url += "?" + queryString;
+            queryString = "";
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open(method,url,true);
+        if(method === "POST") {
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
+
+        xhr.send(queryString);
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+				if(xhr.status === 200){
+					var data = xhr.responseText;
+					if(options.dataType === "json")
+					data = JSON.parse(data);
+					options.success && options.success(data);
+				}else{
+					options.error && options.error(xhr.status);
+				}
+            }
+        }
+    }
+
+
+    function buildLoginCmd(userId, userName, password) {
+        var user = {
+            userId: userId,
+            userName: userName,
+            password: password
+        };
+
+        var cmd = {
+            headSize: 17,
+            requestId: requestId++,
+            biz: 2,
+            cmd: 1,
+            type: 1,
+            end: 0,
+            ver: 1,
+            serializer: 1,
+            payload: user
+        };
+
+        return JSON.stringify(cmd);
+    }
+
+    function buildGetAllUserCmd() {
+        var userQuery = {
+            current: 1,
+            size: 1000
+        };
+
+        var cmd = {
+            headSize: 17,
+            requestId: requestId++,
+            biz: 201,
+            cmd: 2,
+            type: 1,
+            end: 0,
+            ver: 1,
+            serializer: 1,
+            payload: userQuery
+        };
+
+        return JSON.stringify(cmd);
+    }
+
+    function buildResponse(request, code, message, result) {
+        var payload = {
+            code: code,
+            message: message,
+            data: result
+        };
+
+        var cmd = {
+            headSize: 17,
+            requestId: request.requestId,
+            biz: request.biz,
+            cmd: request.cmd,
+            type: 2,
+            end: 0,
+            ver: 1,
+            serializer: 1,
+            payload: payload
+        };
+
+        return JSON.stringify(cmd);
+    }
+
+    function buildInviteCmd(users) {
+        var invitedInfo = {
+            userIds: users,
+            type: 1
+        };
+
+        var cmd = {
+            headSize: 17,
+            requestId: requestId++,
+            biz: 201,
+            cmd: 1,
+            type: 1,
+            end: 0,
+            ver: 1,
+            serializer: 1,
+            payload: invitedInfo
+        };
+
+        return JSON.stringify(cmd);
+    }
+
+    function dispatcher(data) {
+        var cmdKey = data.biz + ":" + data.cmd;
+        if (cmdKey == "1:1") {
+            var ta = document.getElementById('pingText');
+
+            ta.value = ta.value + '\n' + JSON.stringify(data);
+
+            return;
+        }
+
+        var handle = handles[cmdKey];
+        if (handle != null) {
+            handle(data);
+
+            var ta = document.getElementById('responseText');
+            ta.value = ta.value + '\n' + JSON.stringify(data);
+
+        } else {
+            var ta = document.getElementById('responseText');
+            ta.value = ta.value + '\n' + JSON.stringify(data)
+                + '\n' + cmdKey + ": no handle!!!";
+        }
+    }
+
+    function appendTr(user) {
+
+        var tr = document.createElement('tr');
+        tr.setAttribute("userId", user.userId);
+
+        var userIdTd = document.createElement('td');
+        var userNameTd = document.createElement('td');
+        var stateTd = document.createElement('td');
+
+        userIdTd.innerHTML = user.userId;
+        userNameTd.innerHTML = user.name;
+        stateTd.innerHTML = "online";
+
+        tr.appendChild(userIdTd);
+        tr.appendChild(userNameTd);
+        tr.appendChild(stateTd);
+        tableBody.appendChild(tr);
+    }
+
+    function updateUser(user) {
+        var existUser = onlineUsers[user.userId];
+
+        // 状态不一致更新
+        if (existUser.state != user.state) {
+            onlineUsers[user.userId] = user;
+            var tr = findTr(user);
+
+            if (tr == null) {
+                console.log("No Tr...");
+                return;
+            }
+
+            if (user.state == 0) {
+                tr.cells[2].innerHTML = "offline";
+            } else {
+                tr.cells[2].innerHTML = "online";
+            }
+        }
+
+    }
+
+    function findTr(user) {
+        var rows = tableBody.rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var tr = rows[i];
+
+            if (tr.getAttribute("userId") == user.userId) {
+                return tr;
+            }
+        }
+
+        return null;
+    }
+
+    function execInvitedUser(request) {
+        var resp = buildResponse(request,0,"success",null);
+        console.log("send response:" + resp)
+        send(resp);
+    }
+
+
+</script>
+</body>
+</html>
