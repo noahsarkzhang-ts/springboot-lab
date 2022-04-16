@@ -1,0 +1,12 @@
+server:
+  port: 9093
+
+spring:
+  application:
+    name: feign-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos

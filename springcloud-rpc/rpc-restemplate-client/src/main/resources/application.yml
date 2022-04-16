@@ -1,0 +1,12 @@
+server:
+  port: 9092
+
+spring:
+  application:
+    name: resttmplate-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos

@@ -1,0 +1,22 @@
+server:
+  port: 9501
+
+spring:
+  application:
+    name: provider-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.7.115:8848
+        username: nacos
+        password: nacos
+
+logging:
+  level:
+    root: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
