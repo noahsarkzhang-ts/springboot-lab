@@ -34,7 +34,7 @@ import reactor.core.publisher.Mono;
 public class ResourceServerConfig {
 
     @Autowired
-    private AuthorizationManager AuthorizationManager;
+    private AuthorizationManager authorizationManager;
 
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
@@ -53,7 +53,7 @@ public class ResourceServerConfig {
 
         http.authorizeExchange()
                 .pathMatchers(Convert.toStrArray(ignoreUrlsConfig.getUrls())).permitAll()
-                .anyExchange().access(AuthorizationManager)
+                .anyExchange().access(authorizationManager)
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
