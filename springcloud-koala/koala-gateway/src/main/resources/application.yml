@@ -6,6 +6,8 @@ spring:
     name: api-gateway
   cloud:
     sentinel:
+      filter:
+        enabled: false
       # 是否饥饿加载。默认为 false 关闭
       eager: true
       transport:

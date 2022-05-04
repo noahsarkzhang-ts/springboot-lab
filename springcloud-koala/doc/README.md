@@ -174,5 +174,28 @@ protected Authentication createSuccessAuthentication(Object principal,
 
 ```
 
+```java
+// ExpressionBasedFilterInvocationSecurityMetadataSource
+private static LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> processMap(
+			LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap,
+			ExpressionParser parser) {
+		Assert.notNull(parser, "SecurityExpressionHandler returned a null parser object");
+
+		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestToExpressionAttributesMap = new LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>(
+				requestMap);
+
+		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap
+				.entrySet()) {
+			RequestMatcher request = entry.getKey();
+			Assert.isTrue(entry.getValue().size() == 1,
+					() -> "Expected a single expression attribute for " + request);
+			ArrayList<ConfigAttribute> attributes = new ArrayList<>(1);
+			String expression = entry.getValue().toArray(new ConfigAttribute[1])[0]
+					.getAttribute();
+			logger.debug("Adding web access control expression '" + expression + "', for "
+```
+
+DefaultWebSecurityExpressionHandler
+
 
 
