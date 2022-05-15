@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 /**
  * 加入缓存
+ *
  * @author zhangxt
  * @date 2022/03/12 16:53
  **/
@@ -30,19 +31,18 @@ public class CustomClientDetailsService extends JdbcClientDetailsService {
         return super.loadClientByClientId(clientId);
     }
 
-    @CachePut(value = {CacheConstants.OAUTH_CLIENT_DETAILS_KEY}, key = "#clientDetails.clientId")
     @Override
     public void addClientDetails(ClientDetails clientDetails) throws ClientAlreadyExistsException {
         super.addClientDetails(clientDetails);
     }
 
-    @CachePut(value = {CacheConstants.OAUTH_CLIENT_DETAILS_KEY}, key = "#clientDetails.clientId")
+    @CacheEvict(value = {CacheConstants.OAUTH_CLIENT_DETAILS_KEY}, key = "#clientDetails.clientId")
     @Override
     public void updateClientDetails(ClientDetails clientDetails) throws NoSuchClientException {
         super.updateClientDetails(clientDetails);
     }
 
-    @CachePut(value = {CacheConstants.OAUTH_CLIENT_DETAILS_KEY}, key = "#clientId")
+    @CacheEvict(value = {CacheConstants.OAUTH_CLIENT_DETAILS_KEY}, key = "#clientId")
     @Override
     public void updateClientSecret(String clientId, String secret) throws NoSuchClientException {
         super.updateClientSecret(clientId, secret);

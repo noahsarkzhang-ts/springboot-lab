@@ -1,0 +1,10 @@
+.settings
+.project
+.classpath
+.idea
+logs
+target
+pom.xml.versionsBackup
+*.iml
+*.log
+LOG_FILE_IS_UNDEFINED

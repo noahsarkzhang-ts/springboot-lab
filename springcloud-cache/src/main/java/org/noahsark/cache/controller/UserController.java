@@ -42,7 +42,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Result<User> save(@RequestBody User user) {
-        userService.save(user);
+        userService.insert(user);
 
         return Result.success(user);
 

@@ -36,13 +36,13 @@ public class UserService {
     }
 
     @CachePut(value = "users", key = "#user.id")
-    public User save(User user) {
+    public User insert(User user) {
         userMapper.insert(user);
 
         return user;
     }
 
-    @CachePut(value = "users", key = "#user.id")
+    @CacheEvict(value = "users", key = "#id")
     public User update(User user) {
         userMapper.update(user);
 
