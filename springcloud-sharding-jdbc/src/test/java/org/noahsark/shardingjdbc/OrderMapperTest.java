@@ -35,6 +35,7 @@ public class OrderMapperTest {
     @Test
     public void insertTest() {
         Integer orderNo;
+        Integer userId;
 
         int num = 100;
 
@@ -44,8 +45,11 @@ public class OrderMapperTest {
         for (int i = 0; i < num; i++) {
             order = new Order();
             orderNo = random.nextInt(10000) + 1000;
+            userId = random.nextInt(10000) + 10000;
+
             order.setName("order-" + orderNo);
             order.setOrderNo("" + orderNo);
+            order.setUserId(userId);
             order.setPrice(new BigDecimal("1000.5"));
 
             orderMapper.insert(order);
@@ -53,6 +57,7 @@ public class OrderMapperTest {
             orderItem = new OrderItem();
             orderItem.setOrderId(order.getOrderId());
             orderItem.setOrderNo(order.getOrderNo());
+            orderItem.setUserId(order.getUserId());
             orderItem.setItemName("Item" + random.nextInt(10000));
             orderItem.setPrice(new BigDecimal(1000.5));
 

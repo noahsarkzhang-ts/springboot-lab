@@ -14,6 +14,8 @@ public class Order {
 
     private String orderNo;
 
+    private Integer userId;
+
     private String name;
 
     private BigDecimal price;
@@ -37,6 +39,14 @@ public class Order {
         this.orderNo = orderNo;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
@@ -58,6 +68,7 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", orderNo='" + orderNo + '\'' +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';

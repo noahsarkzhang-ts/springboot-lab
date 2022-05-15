@@ -16,6 +16,8 @@ public class OrderItem {
 
     private String orderNo;
 
+    private Integer userId;
+
     private String itemName;
 
     private BigDecimal price;
@@ -47,6 +49,14 @@ public class OrderItem {
         this.orderNo = orderNo;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getItemName() {
         return itemName;
     }
@@ -69,6 +79,7 @@ public class OrderItem {
                 "itemId=" + itemId +
                 ", orderId=" + orderId +
                 ", orderNo='" + orderNo + '\'' +
+                ", userId=" + userId +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
                 '}';

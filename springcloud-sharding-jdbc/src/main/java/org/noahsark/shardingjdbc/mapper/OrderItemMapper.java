@@ -23,7 +23,7 @@ public interface OrderItemMapper {
     @Select("SELECT * FROM t_order_item WHERE item_id = #{itemId}")
     OrderItem get(Long itemId);
 
-    @Insert("INSERT INTO t_order_item(order_id,order_no,item_name,price) VALUES(#{orderId}, #{orderNo}, #{itemName}, #{price})")
+    @Insert("INSERT INTO t_order_item(order_id,order_no,user_id,item_name,price) VALUES(#{orderId}, #{orderNo},#{userId}, #{itemName}, #{price})")
     @Options(useGeneratedKeys = true, keyProperty = "itemId")
     void insert(OrderItem orderItem);
 
