@@ -207,7 +207,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'user', 'e10adc3949ba59abbe56e057f20f883e');
-INSERT INTO `user` VALUES ('2', 'admin', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO `user` VALUES ('2', 'monitor', 'e10adc3949ba59abbe56e057f20f883e');
 
 -- ----------------------------
 -- Table structure for user_role

@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: moniotr-actuator
+  jmx:
+    enabled: true
+  boot:
+    admin:
+      client:
+        # 服务端 url
+        url: http://127.0.0.1:9090
+        instance:
+          # 客户端实例 url
+          service-url: http://127.0.0.1:8080
+          prefer-ip: true
+          # 客户端实例名称
+          name: moniotr-actuator
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: debug

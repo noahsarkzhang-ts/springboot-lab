@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/name")
     public String name() {
-        return "admin";
+        return "monitor";
     }
 
     @GetMapping("/online")
@@ -26,8 +26,8 @@ public class UserController {
         UserDTO user = new UserDTO();
 
         user.setId(1000L);
-        user.setUsername("admin");
-        user.setRoles(Lists.newArrayList("admin"));
+        user.setUsername("monitor");
+        user.setRoles(Lists.newArrayList("monitor"));
 
         return user;
     }
@@ -38,8 +38,8 @@ public class UserController {
         UserDTO user = new UserDTO();
 
         user.setId(1000L);
-        user.setUsername("admin");
-        user.setRoles(Lists.newArrayList("admin"));
+        user.setUsername("monitor");
+        user.setRoles(Lists.newArrayList("monitor"));
 
         return Result.success(user);
     }

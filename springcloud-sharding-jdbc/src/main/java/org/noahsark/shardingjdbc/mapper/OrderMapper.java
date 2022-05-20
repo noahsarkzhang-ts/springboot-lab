@@ -3,9 +3,11 @@ package org.noahsark.shardingjdbc.mapper;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.noahsark.shardingjdbc.model.Order;
+import org.noahsark.shardingjdbc.model.OrderDetail;
 
 import java.util.List;
 
@@ -32,4 +34,25 @@ public interface OrderMapper {
 
     @Delete("DELETE FROM t_order WHERE order_id =#{orderId}")
     void delete(Long orderId);
+
+    @Select(
+            "<script>"
+            + "select "
+            + "o.order_id as orderId, "
+            + "o.order_no as orderNo, "
+            + "o.user_id as userId, "
+            + "o.name as name,"
+            + "o.price as price,"
+            + "oi.item_id as itemId "
+            + "from t_order o "
+            + "left join t_order_item oi on o.order_id = oi.order_id "
+            + "where o.order_id in "
+            + "<foreach collection='orderIds' item='orderId' index='index' "
+            + "  open='(' close=')' separator=','> "
+            + "  #{orderId} "
+            + "</foreach>"
+            + "</script>"
+            )
+    List<OrderDetail> getOrderDetails(@Param("orderIds") List<Long> orderIds);
+
 }

@@ -3,14 +3,12 @@ package org.noahsark.shardingjdbc.model;
 import java.math.BigDecimal;
 
 /**
- * 订单项
+ * Order 详情
  *
  * @author zhangxt
- * @date 2022/05/10 20:05
+ * @date 2022/05/16 10:25
  **/
-public class OrderItem {
-
-    private Long itemId;
+public class OrderDetail {
 
     private Long orderId;
 
@@ -18,21 +16,13 @@ public class OrderItem {
 
     private Integer userId;
 
-    private String itemName;
+    private String name;
 
     private BigDecimal price;
 
-    private OrderItem item;
+    private Long itemId;
 
-    public OrderItem() {
-    }
-
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public OrderDetail() {
     }
 
     public Long getOrderId() {
@@ -59,12 +49,12 @@ public class OrderItem {
         this.userId = userId;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigDecimal getPrice() {
@@ -75,24 +65,23 @@ public class OrderItem {
         this.price = price;
     }
 
-    public OrderItem getItem() {
-        return item;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem(OrderItem item) {
-        this.item = item;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
     @Override
     public String toString() {
-        return "OrderItem{" +
-                "itemId=" + itemId +
-                ", orderId=" + orderId +
+        return "OrderDetail{" +
+                "orderId=" + orderId +
                 ", orderNo='" + orderNo + '\'' +
                 ", userId=" + userId +
-                ", itemName='" + itemName + '\'' +
+                ", name='" + name + '\'' +
                 ", price=" + price +
-                ", item=" + item +
+                ", itemId=" + itemId +
                 '}';
     }
 }

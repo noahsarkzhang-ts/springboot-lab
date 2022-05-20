@@ -2,10 +2,10 @@ package org.noahsark.shardingjdbc.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.noahsark.shardingjdbc.model.Config;
-import org.noahsark.shardingjdbc.model.Order;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ public interface ConfigMapper {
     Config get(Long id);
 
     @Insert("INSERT INTO t_config(code,name,create_date) VALUES(#{code}, #{name}, #{createDate})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Config config);
 
     @Update("UPDATE t_config SET name=#{name} WHERE id =#{id}")

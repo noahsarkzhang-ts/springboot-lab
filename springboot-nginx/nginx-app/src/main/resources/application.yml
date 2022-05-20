@@ -1,0 +1,10 @@
+server:
+  port: 9501
+
+spring:
+  application:
+    name: nginx-app
+
+logging:
+  level:
+    root: info
