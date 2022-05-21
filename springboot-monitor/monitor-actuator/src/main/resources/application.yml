@@ -9,6 +9,9 @@ spring:
   boot:
     admin:
       client:
+        # 访问服务器用户名/密码
+        username: allen
+        password: 12356
         # 服务端 url
         url: http://127.0.0.1:9090
         instance:

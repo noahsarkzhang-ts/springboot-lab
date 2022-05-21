@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: moniotr-admin
+  security:
+    user:
+      name: allen
+      password: 123456
 
 logging:
   level:
