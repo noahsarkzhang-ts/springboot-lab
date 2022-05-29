@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>monitor-actuator</artifactId>
+    <artifactId>monitor-prometheus</artifactId>
 
     <dependencies>
         <dependency>
@@ -40,16 +40,16 @@
             <version>2.2.3</version>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.8.5</version>
-        </dependency>-->
+            <version>1.3.20</version>
+        </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>monitor-actuator</finalName>
+        <finalName>monitor-prometheus</finalName>
 
         <plugins>
             <plugin>

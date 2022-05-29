@@ -10,6 +10,8 @@
     <modules>
         <module>monitor-actuator</module>
         <module>monitor-admin</module>
+        <module>monitor-prometheus</module>
+        <module>monitor-logstash</module>
     </modules>
     <packaging>pom</packaging>
 

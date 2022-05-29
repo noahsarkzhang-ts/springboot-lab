@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>monitor-actuator</artifactId>
+    <artifactId>monitor-logstash</artifactId>
 
     <dependencies>
         <dependency>
@@ -34,22 +34,23 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!--logStash-->
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>2.2.3</version>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.2</version>
         </dependency>
 
-        <!--<dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.8.5</version>
-        </dependency>-->
+        <dependency>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <version>1.7.26</version>
+        </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>monitor-actuator</finalName>
+        <finalName>monitor-logstash</finalName>
 
         <plugins>
             <plugin>

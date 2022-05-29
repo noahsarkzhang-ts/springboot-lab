@@ -96,8 +96,8 @@ public class OrderMapperTest {
     public void insertConfigTest() {
 
         Config config = new Config();
-        config.setCode("OS");
-        config.setName("os");
+        config.setCode("VISION");
+        config.setName("vision");
         config.setCreateDate(new Date());
 
         configMapper.insert(config);
