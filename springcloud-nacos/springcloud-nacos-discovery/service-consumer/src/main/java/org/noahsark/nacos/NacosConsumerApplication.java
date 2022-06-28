@@ -1,5 +1,7 @@
 package org.noahsark.nacos;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +33,8 @@ public class NacosConsumerApplication {
 
         private final RestTemplate restTemplate;
 
+        private Logger logger = LoggerFactory.getLogger(TestController.class);
+
         @Autowired
         public TestController(RestTemplate restTemplate) {
             this.restTemplate = restTemplate;
@@ -38,7 +42,8 @@ public class NacosConsumerApplication {
 
         @RequestMapping(value = "/echo/{str}", method = RequestMethod.GET)
         public String echo(@PathVariable String str) {
-            return restTemplate.getForObject("http://service-provider/services/echo/" + str, String.class);
+            logger.info("Receive a request:{}", str);
+            return restTemplate.getForObject("http://service-provider/services/hello/" + str, String.class);
         }
     }
 }
